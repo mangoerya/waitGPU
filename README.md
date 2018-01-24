@@ -15,7 +15,7 @@ to the qualifying GPU on multi-GPU systems.
 
 ```python
 import waitGPU
-waitGPU.wait(utilization=0.5, memory_ratio=0.5, available_memory=300,
+waitGPU.wait(utilization=50, memory_ratio=0.5, available_memory=300,
              interval=10)
 ```
 Specifying keyword arguments to `wait` will determine the criteria to wait for: 
