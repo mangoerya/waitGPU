@@ -16,20 +16,27 @@ def avail_mem_sat (gpu, mem):
     avail_mem = float(gpu.entry['memory.total'])-float(gpu.entry['memory.used'])
     return mem <= avail_mem
 
+def gpu_id_sat(gpu, gpu_ids): 
+    gid = int(gpu.entry['index'])
+    return gid in gpu_ids
+
 def wait(utilization=None, memory_ratio=None, available_memory=None,
-         interval=10):
+         interval=10, gpu_ids=None):
     print("waitGPU: Waiting for the following conditions, checking every {} seconds. "
           .format(interval))
     conditions = []
     if utilization is not None: 
         conditions.append(lambda gpu: util_sat(gpu, utilization))
-        print("waitGPU: utilization <= {}".format(utilization))
+        print("+ utilization <= {}".format(utilization))
     if memory_ratio is not None: 
         conditions.append(lambda gpu: mem_ratio_sat(gpu, memory_ratio))
-        print("waitGPU: memory_ratio <= {}".format(memory_ratio))
+        print("+ memory_ratio <= {}".format(memory_ratio))
     if available_memory is not None: 
         conditions.append(lambda gpu: avail_mem_sat(gpu, available_memory))
-        print("waitGPU: available_memory >= {}".format(available_memory))
+        print("+ available_memory >= {}".format(available_memory))
+    if gpu_ids is not None: 
+        conditions.append(lambda gpu: gpu_id_sat(gpu, gpu_ids))
+        print("+ GPU id is {}".format(gpu_ids))
 
     free_gpu_id = None
     while free_gpu_id is None: 
