@@ -14,7 +14,6 @@ def mem_ratio_sat(gpu, mem_ratio):
 def avail_mem_sat (gpu, mem): 
     """ Return true if there is at least mem available memory """
     avail_mem = float(gpu.entry['memory.total'])-float(gpu.entry['memory.used'])
-    print(avail_mem)
     return mem <= avail_mem
 
 def wait(utilization=None, memory_ratio=None, available_memory=None,
