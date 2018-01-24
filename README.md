@@ -16,7 +16,7 @@ to the qualifying GPU on multi-GPU systems.
 ```python
 import waitGPU
 waitGPU.wait(utilization=50, memory_ratio=0.5, available_memory=300,
-             interval=10)
+             gpu_ids=[1,2], interval=10)
 ```
 Specifying keyword arguments to `wait` will determine the criteria to wait for: 
 + `utilization` will wait until GPU utilization is at most the given value
@@ -24,6 +24,7 @@ Specifying keyword arguments to `wait` will determine the criteria to wait for:
   given value
 + `available_memory` will wait until the available memory is at least the
   given value
++ `gpu_ids` will only consider GPUs with the given IDs
 + `interval` is the number of seconds to wait before checking conditions
 
 # Dependencies
